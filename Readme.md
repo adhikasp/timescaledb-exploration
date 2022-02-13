@@ -58,6 +58,7 @@ row rate 13291.66/sec (overall)
 
 ## sanity check
 
+```
 exploration=# SELECT sum(total_fee), count(*) from transactions WHERE merchant_id = 'merchant-1';
     sum     |  count
 ------------+---------
@@ -72,8 +73,12 @@ exploration=# SELECT sum(total_fee), sum(transaction_count) from transactions_da
 (1 row)
 
 Time: 35.236 ms
+```
+
 
 # Query plan
+
+```
 
                                                                            QUERY PLAN
 
@@ -165,12 +170,13 @@ Time: 35.236 ms
  Planning Time: 9.761 ms
  Execution Time: 4.956 ms
 (24 rows)
+```
 
 
 
 # Alter table
 
-
+```
  exploration=# ALTER TABLE transactions ADD COLUMN fee_10 int NULL;
 ALTER TABLE
 Time: 29.147 ms
@@ -216,6 +222,7 @@ exploration=# CALL refresh_continuous_aggregate('transactions_daily', NULL, NULL
 
 CALL
 Time: 71074.520 ms (01:11.075)
+```
 
 
 # Compare
@@ -225,6 +232,7 @@ https://www.cpubenchmark.net/compare/Intel-Xeon-E5-2676-v3-vs-Intel-Core2-Duo-E8
 
 # Compare
 
+```
 exploration=# select avg(total_fee) from transactions;
          avg
 ----------------------
@@ -252,6 +260,7 @@ exploration=# select count(*) from transactions_daily;
   6368
 (1 row)
 Time: 88.880 ms
+```
 
 # Compression
 
@@ -261,6 +270,7 @@ Before
 After 
 1 month uncompressed + 2 month compressed => 5GB
 
+```
 exploration=# SELECT * FROM transactions WHERE transaction_id = '7757fd62-8bfe-11ec-ab4b-63d923f6a2a2' and transaction_updated_time > now() - interval '14 day';
 
 exploration=# SELECT * FROM transactions WHERE transaction_id = '7757fd62-8bfe-11ec-ab4b-63d923f6a2a2';
@@ -284,6 +294,7 @@ rval '1 month';
 (1 row)
 
 Time: 18492.094 ms (00:18.492)
+```
 
 
 # Analyze visual
@@ -300,6 +311,7 @@ http://tatiyants.com/pev/#/plans/new
 
 30 million data
 
+```
 exploration=# CREATE MATERIALIZED VIEW transactions_weekly_avg
 WITH (timescaledb.continuous)
 AS
@@ -317,3 +329,4 @@ NOTICE:  refreshing continuous aggregate "transactions_weekly_avg"
 HINT:  Use WITH NO DATA if you do not want to refresh the continuous aggregate on creation.
 CREATE MATERIALIZED VIEW
 Time: 261120.502 ms (04:21.121)
+```
