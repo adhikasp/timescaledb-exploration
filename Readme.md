@@ -1,11 +1,24 @@
 # Setup
 
+You must have this installed before hand.
+
 ```
 sudo apt-get install -y postgresql-client
 pip3 install progressbar2 faker
 go get github.com/timescale/timescaledb-parallel-copy/cmd/timescaledb-parallel-copy
 ```
 
+Starting postgresql with timescaledb extension
+
+```
+docker-compose up -d
+```
+
+Create table and populate data
+
+```
+./command.sh
+```
 
 # 1 million dataset
 
