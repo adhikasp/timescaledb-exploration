@@ -73,7 +73,7 @@ row rate 13291.66/sec (overall)
 
 DB size 33.8G  
 DB insert 1:33:0  
-row rate 13291.66/sec (overall) 
+row rate 5368.28/sec (overall)  
 
 # Query direct hypertables vs continous aggregate
 
