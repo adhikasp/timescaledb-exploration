@@ -9,30 +9,30 @@ go get github.com/timescale/timescaledb-parallel-copy/cmd/timescaledb-parallel-c
 
 # 1 million dataset
 
-CSV data generation 2:17
-Insert 3:52
+CSV data generation 2:17  
+Insert 3:52  
 
-Raw data size 314MB
-DB size 1.0GB
-postgresql total size 2.1GB
+Raw data size 314MB  
+DB size 1.0GB  
+postgresql total size 2.1GB  
 
 # 10 million dataset
 
-CSV data generation 21:53
-DB insert 06:50:47
+CSV data generation 21:53  
+DB insert 06:50:47  
 
-Raw data size 3.1G
-DB size 8.95GB
-postgresql total size 10GB
+Raw data size 3.1G  
+DB size 8.95GB  
+postgresql total size 10GB  
 
 # 10 million dataset 2nd run
 
-CSV data generation 22:15
-DB Insert 3:28:49
+CSV data generation 22:15  
+DB Insert 3:28:49  
 
-Raw data size 3.1G
-DB size 10.8G
-postgresql total size 12G
+Raw data size 3.1G  
+DB size 10.8G  
+postgresql total size 12G  
 
 798 ingestion / second
 
@@ -40,21 +40,21 @@ postgresql total size 12G
 
 Using timescaledb-parallel-copy
 
-CSV data 12:00
-DB Insert 26:24
+CSV data 12:00  
+DB Insert 26:24  
 
-Raw data size 3.1G
-DB size 10.8G
-postgresql total size 12G
+Raw data size 3.1G  
+DB size 10.8G  
+postgresql total size 12G  
 
-6243.59/sec (overall)
+6243.59/sec (overall)  
 
 # 10 million dateaset 4th run 
 
 Using timescale managed db
 
-DB insert 12:28
-row rate 13291.66/sec (overall)
+DB insert 12:28  
+row rate 13291.66/sec (overall)  
 
 ## sanity check
 
@@ -224,12 +224,6 @@ CALL
 Time: 71074.520 ms (01:11.075)
 ```
 
-
-# Compare
-
-https://www.cpubenchmark.net/compare/Intel-Xeon-E5-2676-v3-vs-Intel-Core2-Duo-E8400/2643vs955
-
-
 # Compare
 
 ```
@@ -330,3 +324,11 @@ HINT:  Use WITH NO DATA if you do not want to refresh the continuous aggregate o
 CREATE MATERIALIZED VIEW
 Time: 261120.502 ms (04:21.121)
 ```
+
+# Misc
+
+All of this is running on 70 USD "server", running CPU from 2008
+
+https://www.cpubenchmark.net/compare/Intel-Xeon-E5-2676-v3-vs-Intel-Core2-Duo-E8400/2643vs955
+
+![selfhosted-server-image](img/test-server.jpg)
