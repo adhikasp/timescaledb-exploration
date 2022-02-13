@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  timescaledb:
+    container_name: timescaledb
+    image: 'timescale/timescaledb:latest-pg14'
+    ports:
+      - '5433:5432'
+    volumes:
+      # - '/mnt/hdd1/Workspace/timescaledb:/var/lib/postgresql/data'
+      - '/home/adhikasp/Workplace/timescaledb-data:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_PASSWORD=password
+      - TZ=Asia/Jakarta
