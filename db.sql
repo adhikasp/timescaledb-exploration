@@ -57,7 +57,7 @@ CREATE INDEX ON transactions (merchant_id, store_id, alternative_id_2, transacti
 
 
 -- Step 2: Turn into hypertable
-SELECT create_hypertable('transactions','transaction_updated_time');
+SELECT create_hypertable('transactions','transaction_updated_time', chunk_time_interval => INTERVAL '7 day');
 
 
 -- Step 3: Compression policy
