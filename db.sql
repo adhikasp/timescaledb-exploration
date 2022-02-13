@@ -60,15 +60,20 @@ CREATE INDEX ON transactions (merchant_id, store_id, alternative_id_2, transacti
 SELECT create_hypertable('transactions','transaction_updated_time', chunk_time_interval => INTERVAL '7 day');
 
 
--- Step 3: Compression policy
+-- Step 3: Various policy for time-series data management
+
+-- Compression
 ALTER TABLE transactions SET (
   timescaledb.compress,
   timescaledb.compress_segmentby = 'merchant_id, store_id',
   timescaledb.compress_orderby = 'transaction_id, transaction_updated_time DESC'
 );
-
+SELECT add_compression_policy('transactions', INTERVAL '3 month');
 -- To compress manually
 -- SELECT compress_chunk(i) from show_chunks('transactions', older_than => INTERVAL '1 month') i;
+
+-- Data retention length
+SELECT add_retention_policy('transactions', INTERVAL '1 year');
 
 -- Step 3: Create continuous aggregates
 CREATE MATERIALIZED VIEW transactions_daily
@@ -97,6 +102,6 @@ GROUP BY merchant_id, store_id, bucket
 WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('transactions_daily',
-     start_offset => NULL,
+     start_offset => INTERVAL '1 year',
      end_offset => INTERVAL '30 m',
      schedule_interval => INTERVAL '30 m');
