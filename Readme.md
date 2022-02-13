@@ -49,14 +49,20 @@ postgresql total size 12G
 
 6243.59/sec (overall)  
 
-# 10 million dateaset 4th run 
+# 10 million dataset 4th run 
 
 Using timescale managed db
 
 DB insert 12:28  
 row rate 13291.66/sec (overall)  
 
-## sanity check
+# 30 million dataset
+
+DB size 33.8G  
+DB insert 1:33:0  
+row rate 13291.66/sec (overall) 
+
+# Query direct hypertables vs continous aggregate
 
 ```
 exploration=# SELECT sum(total_fee), count(*) from transactions WHERE merchant_id = 'merchant-1';
@@ -76,7 +82,7 @@ Time: 35.236 ms
 ```
 
 
-# Query plan
+## Query plan
 
 ```
 
