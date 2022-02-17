@@ -1,3 +1,17 @@
+## Comparison between databases
+
+| Features             | MySQL 5.7 | MySQL 8.x | TimeScaleDB | ScyllaDB |
+|----------------------|-----------|-----------|-------------|----------|
+| Atomic transaction   | Yes       | Yes       | Yes         | No       |
+| Instant alter        | No        | Yes       | Yes         | Yes      |
+| Backgroun indexing   | No        | No        | Yes         | Yes      |
+| Parallel scan query  | No        | No        | Yes         | Yes      |
+| Data compaction      | No        | No        | Yes         | Yes      |
+| Data TTL             | No        | No        | Yes         | Yes      |
+| Analytics-like query | No        | No        | Yes, continuous aggregate | Yes, realtime query |
+| Multi node sharding  | No        | No        | Yes         | Yes      |
+| Arbitrary WHERE clause | Yes     | Yes       | Yes         | No, index only |
+
 # Setup
 
 You must have this installed before hand.
