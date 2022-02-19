@@ -10,7 +10,7 @@
 | Data TTL             | No        | No        | Yes         | Yes      |
 | Analytics-like query | No        | No        | Yes, continuous aggregate | Yes, realtime query |
 | Multi node sharding  | No        | No        | Yes, with master node | Yes, fully peer-to-peer |
-| Arbitrary WHERE clause | Yes     | Yes       | Yes         | No, index only |
+| Multiple indexes     | Yes       | Yes       | Yes         | Kinda, use GSI / materialized view |
 
 ## Query time
 
