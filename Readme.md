@@ -149,7 +149,7 @@ Time: 35.236 ms
                      ->  Parallel Seq Scan on _hyper_1_11_chunk  (cost=0.00..41084.60 rows=365761 width=4) (actual time=2.423..3705.161 rows=621761 loops=1)
                            Filter: (merchant_id = 'merchant-1'::text)
                            Rows Removed by Filter: 156240
-                                                ->  Parallel Seq Scan on _hyper_1_4_chunk  (cost=0.00..41084.55 rows=366835 width=4) (actual time=4.753..1680.699 rows=311234 loops=2)
+                     ->  Parallel Seq Scan on _hyper_1_4_chunk  (cost=0.00..41084.55 rows=366835 width=4) (actual time=4.753..1680.699 rows=311234 loops=2)
                            Filter: (merchant_id = 'merchant-1'::text)
                            Rows Removed by Filter: 77764
                      ->  Parallel Seq Scan on _hyper_1_9_chunk  (cost=0.00..41075.29 rows=365885 width=4) (actual time=1.641..3825.738 rows=622025 loops=1)
@@ -392,6 +392,13 @@ mysql> SELECT sum(total_fee), count(*) from transactions WHERE merchant_id = 'me
 |     3635652669 |  7998871 |
 +----------------+----------+
 1 row in set (6 min 52.35 sec)
+```
+
+Explain analyze
+
+```
+-> Aggregate: sum(transactions.total_fee), count(0)  (cost=1566764.00 rows=4902925) (actual time=457808.339..457808.340 rows=1 loops=1)
+    -> Index lookup on transactions using i6 (merchant_id='merchant-1')  (cost=1076471.50 rows=4902925) (actual time=86.929..456590.123 rows=7998871 loops=1)
 ```
 
 # Misc
