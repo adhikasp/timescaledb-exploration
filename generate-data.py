@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 DAY_RANGE = 90
-NUM_OF_TRANSACTIONS = 30_000_000
+NUM_OF_TRANSACTIONS = 10_000_000
 
 import random
 
@@ -117,7 +117,7 @@ import datetime
 from faker import Faker
 from progressbar import progressbar
 
-with open('generated-transactions-data.csv', 'w', encoding='UTF8') as f:
+with open('transactions.csv', 'w', encoding='UTF8') as f:
     writer = csv.writer(f)
     writer.writerow(header)
     fake = Faker()

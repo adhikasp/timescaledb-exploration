@@ -4,13 +4,25 @@
 |----------------------|-----------|-----------|-------------|----------|
 | Atomic transaction   | Yes       | Yes       | Yes         | No       |
 | Instant alter        | No        | Yes       | Yes         | Yes      |
-| Backgroun indexing   | No        | No        | Yes         | Yes      |
+| Background indexing  | No        | No        | Yes         | Yes      |
 | Parallel scan query  | No        | No        | Yes         | Yes      |
 | Data compaction      | No        | No        | Yes         | Yes      |
 | Data TTL             | No        | No        | Yes         | Yes      |
 | Analytics-like query | No        | No        | Yes, continuous aggregate | Yes, realtime query |
 | Multi node sharding  | No        | No        | Yes         | Yes      |
 | Arbitrary WHERE clause | Yes     | Yes       | Yes         | No, index only |
+
+## Query time
+
+```sql
+SELECT sum(total_fee), count(*) from transactions WHERE merchant_id = 'merchant-1';
+```
+
+| Database                           | Time            |
+|------------------------------------|-----------------|
+| Mysql 8.0                          | 6 min 52.35 sec |
+| TimescaleDB (raw table query)      | 0 min 27 sec    |
+| TimescaleDB (continuous aggregate) | 35 ms           |
 
 # Setup
 
@@ -356,6 +368,30 @@ NOTICE:  refreshing continuous aggregate "transactions_weekly_avg"
 HINT:  Use WITH NO DATA if you do not want to refresh the continuous aggregate on creation.
 CREATE MATERIALIZED VIEW
 Time: 261120.502 ms (04:21.121)
+```
+
+# vs MySQL
+
+Insert time ~1 hour
+
+```
+mysql> select count(*) from transactions;
++----------+
+| count(*) |
++----------+
+| 10000001 |
++----------+
+1 row in set (45.94 sec)
+```
+
+```
+mysql> SELECT sum(total_fee), count(*) from transactions WHERE merchant_id = 'merchant-1';
++----------------+----------+
+| sum(total_fee) | count(*) |
++----------------+----------+
+|     3635652669 |  7998871 |
++----------------+----------+
+1 row in set (6 min 52.35 sec)
 ```
 
 # Misc
