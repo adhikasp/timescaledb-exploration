@@ -9,7 +9,7 @@
 | Data compaction      | No        | No        | Yes         | Yes      |
 | Data TTL             | No        | No        | Yes         | Yes      |
 | Analytics-like query | No        | No        | Yes, continuous aggregate | Yes, realtime query |
-| Multi node sharding  | No        | No        | Yes         | Yes      |
+| Multi node sharding  | No        | No        | Yes, with master node | Yes, fully peer-to-peer |
 | Arbitrary WHERE clause | Yes     | Yes       | Yes         | No, index only |
 
 ## Query time
