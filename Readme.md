@@ -370,6 +370,28 @@ CREATE MATERIALIZED VIEW
 Time: 261120.502 ms (04:21.121)
 ```
 
+# Update query
+
+```
+exploration=# UPDATE transactions SET transaction_updated_time = now() WHERE transaction_id = 'd7dd00ea-8c43-11ec-ab4b-63d923f6a2a2' AND transaction_updated_time > '2022-02-01';
+ERROR:  new row for relation "_hyper_1_16_chunk" violates check constraint "constraint_16"
+DETAIL:  Failing row contains (2022-02-13 02:58:32.388652, 2022-02-20 19:02:57.249809, 25200, d7dd00ea-8c43-11ec-ab4b-63d923f6a2a2, d7dd00eb-8c43-11ec-ab4b-63d923f6a2a2, d7dd00ec-8c43-11ec-ab4b-63d923f6a2a2, d7dd00ed-8c43-11ec-ab4b-63d923f6a2a2, d7dd00ee-8c43-11ec-ab4b-63d923f6a2a2, d7dd00ef-8c43-11ec-ab4b-63d923f6a2a2, merchant-1, store-1, 1, 1, 1, 2, 1, 4, 62, 80, 41, 73, 100, 43, 84, 39, 526).
+Time: 26.056 ms
+```
+
+```sql
+BEGIN;
+
+INSERT INTO transactions (transaction_id, alternative_id_1, alternative_id_2, alternative_id_3, alternative_id_4, alternative_id_5, total_fee, transaction_updated_time, transaction_created_time)
+      SELECT transaction_id, alternative_id_1, alternative_id_2, alternative_id_3, alternative_id_4, alternative_id_5, total_fee, now(), transaction_created_time
+      FROM transactions
+      WHERE transaction_id = 'd7dd00e4-8c43-11ec-ab4b-63d923f6a2a2' AND transaction_updated_time = '2022-02-13 02:58:32.129452';
+
+DELETE FROM transactions WHERE transaction_id = 'd7dd00e4-8c43-11ec-ab4b-63d923f6a2a2' AND transaction_updated_time = '2022-02-13 02:58:32.129452';
+
+COMMIT;
+```
+
 # vs MySQL
 
 Insert time ~1 hour
